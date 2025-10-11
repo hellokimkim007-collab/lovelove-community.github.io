@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자기사랑커뮤니티 - 링크 모음</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        
+        .profile {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        
+        .profile h1 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .profile p {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .link-item {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideUp 0.5s ease;
+        }
+        
+        .link-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .link-icon {
+            font-size: 32px;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .link-content {
+            flex: 1;
+        }
+        
+        .link-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #2c3e50;
+        }
+        
+        .link-desc {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <img src="https://via.placeholder.com/120" alt="프로필" class="profile-image">
+            <h1>사단법인 자기사랑커뮤니티</h1>
+            <p>자기 사랑을 통한 심신 건강 회복<br>건강한 공동체 문화 조성</p>
+        </div>
+        
+        <div class="links">
+            <a href="https://example.com/자기사랑" class="link-item">
+                <div class="link-icon">💜</div>
+                <div class="link-content">
+                    <div class="link-title">자기사랑 홈페이지</div>
+                    <div class="link-desc">프로그램 안내 및 신청</div>
+                </div>
+            </a>
+            
+            <a href="https://example.com/연구소" class="link-item">
+                <div class="link-icon">🏥</div>
+                <div class="link-content">
+                    <div class="link-title">심리상담연구소</div>
+                    <div class="link-desc">전문 심리상담 예약</div>
+                </div>
+            </a>
+            
+            <a href="https://example.com/콜링유" class="link-item">
+                <div class="link-icon">📞</div>
+                <div class="link-content">
+                    <div class="link-title">콜링유</div>
+                    <div class="link-desc">온라인 상담 플랫폼</div>
+                </div>
+            </a>
+            
+            <a href="https://example.com/중독회복" class="link-item">
+                <div class="link-icon">🎙️</div>
+                <div class="link-content">
+                    <div class="link-title">중독회복방송</div>
+                    <div class="link-desc">중독회복 프로그램</div>
+                </div>
+            </a>
+            
+            <a href="https://instagram.com/yourpage" class="link-item">
+                <div class="link-icon">📷</div>
+                <div class="link-content">
+                    <div class="link-title">Instagram</div>
+                    <div class="link-desc">일상 소식 및 후기</div>
+                </div>
+            </a>
+            
+            <a href="https://blog.naver.com/yourpage" class="link-item">
+                <div class="link-icon">📝</div>
+                <div class="link-content">
+                    <div class="link-title">네이버 블로그</div>
+                    <div class="link-desc">칼럼 및 정보</div>
+                </div>
+            </a>
+            
+            <a href="mailto:info@jagirang.org" class="link-item">
+                <div class="link-icon">✉️</div>
+                <div class="link-content">
+                    <div class="link-title">이메일 문의</div>
+                    <div class="link-desc">info@jagirang.org</div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="footer">
+            © 2024 사단법인 자기사랑커뮤니티
+        </div>
+    </div>
+</body>
+</html>
