@@ -62,25 +62,49 @@
             font-size: 20px;
             line-height: 1.7;
             font-weight: 500;
+            margin-bottom: 25px;
+        }
+        
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .quick-link {
+            text-decoration: none;
+            font-size: 38px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .quick-link:hover {
+            transform: translateY(-5px) scale(1.2);
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.2));
         }
         
         .links {
             display: flex;
-            flex-direction: column;
-            gap: 18px;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
         }
         
         .link-item {
             background: white;
-            padding: 24px;
-            border-radius: 20px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
             text-decoration: none;
             color: #333;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 8px 20px rgba(0,0,0,0.08);
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 20px;
+            justify-content: center;
+            gap: 8px;
             animation: slideUp 0.6s ease backwards;
             position: relative;
             overflow: hidden;
@@ -110,23 +134,42 @@
         .link-item:nth-child(7) { animation-delay: 0.7s; }
         
         .link-item:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-10px) scale(1.05);
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
         
         .link-item:active {
-            transform: translateY(-4px) scale(1.01);
+            transform: translateY(-5px) scale(1.03);
         }
         
         .link-icon {
-            font-size: 40px;
-            min-width: 60px;
-            text-align: center;
+            font-size: 42px;
             transition: transform 0.3s ease;
         }
         
+        .link-icon img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+        
         .link-item:hover .link-icon {
-            transform: scale(1.2) rotate(5deg);
+            transform: scale(1.15) rotate(5deg);
+        }
+        
+        .link-content {
+            text-align: center;
+        }
+        
+        .link-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2c3e50;
+            letter-spacing: -0.3px;
+        }
+        
+        .link-desc {
+            display: none;
         }
         
         .heart-burst {
@@ -149,24 +192,6 @@
                 opacity: 0;
                 transform: translate(calc(var(--tx) * 1.5), calc(var(--ty) * 1.5)) scale(0.5);
             }
-        }
-        
-        .link-content {
-            flex: 1;
-        }
-        
-        .link-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #2c3e50;
-            letter-spacing: -0.3px;
-        }
-        
-        .link-desc {
-            font-size: 15px;
-            color: #7f8c8d;
-            font-weight: 400;
         }
         
         @keyframes fadeInDown {
@@ -244,31 +269,20 @@
                 <img src="https://postfiles.pstatic.net/MjAyNTEwMTRfMTA5/MDAxNzYwNDE1MTg2OTI4.yD8lPs2N9h2DHpNWGYm7Q2hrlTnhsvhUnl0eeGlYIjMg.nnfspaY5_W6Jhv9cXQZxHIgrPLEpWP83oxpstOF-cEUg.PNG/%EC%84%9C%EC%9A%B8%EC%A4%91%EB%8F%85%EC%8B%AC%EB%A6%AC%EC%97%B0%EA%B5%AC%EC%86%8C_%EB%A9%94%EC%9D%B8%ED%94%84%EB%A1%9C%ED%95%84.png?type=w966" alt="서울중독심리연구소" class="profile-image">
             </div>
             <h1>연구소</h1>
-            <p class="tagline">자기 사랑을 통한 심신 건강 회복</p>
+ 
+            <div class="quick-links">
+                <a href="https://ynissi.org/new/" class="quick-link" title="연구소 홈페이지">🏠</a>
+                <a href="https://loveus.or.kr/" class="quick-link" title="자기사랑 홈페이지">💜</a>
+            </div>
         </div>
         
         <div class="links">
-            <a href="https://example.com/자기사랑" class="link-item">
-                <div class="link-icon">💜</div>
-                <div class="link-content">
-                    <div class="link-title">자기사랑 홈페이지</div>
-                    <div class="link-desc">프로그램 안내 및 신청</div>
+            <a href="https://callingu.kr/" class="link-item">
+                <div class="link-icon">
+                    <img src="https://postfiles.pstatic.net/MjAyNTEwMTRfMjIz/MDAxNzYwNDE2MDc5OTA5.0sGfTuPw5p4aZlYEyEDOei20MWUhg77nWdOxNjG6cTgg.KnMM-aoMiwgE-a0iLRtHU--C7VvbwLEJOdmpsoCKC04g.GIF/%EC%BD%9C%EB%A7%81%EC%9C%A0_%EB%A1%9C%EA%B3%A0_GIF.gif?type=w3840" alt="콜링유">
                 </div>
-            </a>
-            
-            <a href="https://example.com/연구소" class="link-item">
-                <div class="link-icon">🏥</div>
-                <div class="link-content">
-                    <div class="link-title">심리상담연구소</div>
-                    <div class="link-desc">전문 심리상담 예약</div>
-                </div>
-            </a>
-            
-            <a href="https://example.com/콜링유" class="link-item">
-                <div class="link-icon">📞</div>
                 <div class="link-content">
                     <div class="link-title">콜링유</div>
-                    <div class="link-desc">온라인 상담 플랫폼</div>
                 </div>
             </a>
             
@@ -276,37 +290,12 @@
                 <div class="link-icon">🎙️</div>
                 <div class="link-content">
                     <div class="link-title">중독회복방송</div>
-                    <div class="link-desc">중독회복 프로그램</div>
-                </div>
-            </a>
-            
-            <a href="https://instagram.com/yourpage" class="link-item">
-                <div class="link-icon">📷</div>
-                <div class="link-content">
-                    <div class="link-title">Instagram</div>
-                    <div class="link-desc">일상 소식 및 후기</div>
-                </div>
-            </a>
-            
-            <a href="https://blog.naver.com/yourpage" class="link-item">
-                <div class="link-icon">📝</div>
-                <div class="link-content">
-                    <div class="link-title">네이버 블로그</div>
-                    <div class="link-desc">칼럼 및 정보</div>
-                </div>
-            </a>
-            
-            <a href="mailto:info@jagirang.org" class="link-item">
-                <div class="link-icon">✉️</div>
-                <div class="link-content">
-                    <div class="link-title">이메일 문의</div>
-                    <div class="link-desc">info@jagirang.org</div>
                 </div>
             </a>
         </div>
         
         <div class="footer">
-            © 2024 서울중독심리연구소
+            © 2025 서울중독심리연구소
         </div>
     </div>
     
