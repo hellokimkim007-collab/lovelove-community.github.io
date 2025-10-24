@@ -1,342 +1,245 @@
+<?php
+// index.php로 저장하세요 (확장자를 .php로 변경)
+require_once 'config.php';
+$data = loadData();
+?>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>서울중독심리연구소</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe8f0 100%);
-            min-height: 100vh;
-            padding: 60px 20px;
-            position: relative;
-        }
-        
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-        }
-        
-        .profile {
-            text-align: center;
-            margin-bottom: 50px;
-            animation: fadeInDown 1s ease;
-        }
-        
-        .profile-image-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 30px;
-        }
-        
-        .profile-image {
-            width: 280px;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .profile h1 {
-            color: #2c3e50;
-            font-size: 42px;
-            margin-bottom: 20px;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-        
-        .profile .tagline {
-            color: #5d6d7e;
-            font-size: 20px;
-            line-height: 1.7;
-            font-weight: 500;
-            margin-bottom: 25px;
-        }
-        
-        .quick-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 25px;
-        }
-        
-        .quick-link {
-            text-decoration: none;
-            font-size: 38px;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        
-        .quick-link:hover {
-            transform: translateY(-5px) scale(1.2);
-            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.2));
-        }
-        
-        .links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
-        
-        .link-item {
-            background: white;
-            width: 180px;
-            height: 180px;
-            border-radius: 0;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            animation: slideUp 0.6s ease backwards;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .link-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,182,193,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .link-item:hover::before {
-            left: 100%;
-        }
-        
-        .link-item:nth-child(1) { animation-delay: 0.1s; }
-        .link-item:nth-child(2) { animation-delay: 0.2s; }
-        .link-item:nth-child(3) { animation-delay: 0.3s; }
-        .link-item:nth-child(4) { animation-delay: 0.4s; }
-        .link-item:nth-child(5) { animation-delay: 0.5s; }
-        .link-item:nth-child(6) { animation-delay: 0.6s; }
-        .link-item:nth-child(7) { animation-delay: 0.7s; }
-        
-        .link-item:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-        
-        .link-item:active {
-            transform: translateY(-5px) scale(1.03);
-        }
-        
-        .link-icon {
-            font-size: 50px;
-            transition: transform 0.3s ease;
-        }
-        
-        .link-icon img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-        }
-        
-        .link-item:hover .link-icon {
-            transform: scale(1.15) rotate(5deg);
-        }
-        
-        .link-content {
-            text-align: center;
-        }
-        
-        .link-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #2c3e50;
-            letter-spacing: -0.3px;
-        }
-        
-        .link-desc {
-            display: none;
-        }
-        
-        .heart-burst {
-            position: absolute;
-            pointer-events: none;
-            font-size: 20px;
-            animation: burstHeart 1s ease-out forwards;
-        }
-        
-        @keyframes burstHeart {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(0);
-            }
-            50% {
-                opacity: 1;
-                transform: translate(var(--tx), var(--ty)) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(calc(var(--tx) * 1.5), calc(var(--ty) * 1.5)) scale(0.5);
-            }
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            color: #7f8c8d;
-            font-size: 15px;
-            font-weight: 500;
-            animation: fadeIn 1s ease 1s backwards;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 40px 15px;
-            }
-            
-            .profile-image {
-                width: 220px;
-            }
-            
-            .profile h1 {
-                font-size: 32px;
-            }
-            
-            .profile .tagline {
-                font-size: 18px;
-            }
-            
-            .link-item {
-                padding: 20px;
-            }
-            
-            .link-icon {
-                font-size: 36px;
-                min-width: 50px;
-            }
-            
-            .link-title {
-                font-size: 18px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?php echo htmlspecialchars($data['profile']['title']); ?> - 통합 링크 프로필</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      padding: 40px 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .profile {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .profile img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      margin-bottom: 20px;
+    }
+    
+    .profile h1 {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    
+    .profile p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+    
+    .links {
+      margin: 30px 0;
+    }
+    
+    .links a {
+      display: block;
+      margin: 12px 0;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    .links a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+    
+    .media-section {
+      margin-top: 40px;
+    }
+    
+    .media-section h2 {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 16px;
+      text-align: center;
+      font-weight: 700;
+    }
+    
+    .media-item {
+      margin-bottom: 30px;
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 16px;
+    }
+    
+    .media-title {
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    
+    audio, video {
+      width: 100%;
+      border-radius: 12px;
+      outline: none;
+      margin-top: 8px;
+    }
+    
+    video {
+      background: #000;
+    }
+    
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .gallery img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #eee;
+      color: #999;
+      font-size: 14px;
+    }
+    
+    .admin-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .admin-link a {
+      color: #999;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+      }
+      
+      .profile h1 {
+        font-size: 24px;
+      }
+      
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="profile">
-            <div class="profile-image-wrapper">
-                <img src="https://postfiles.pstatic.net/MjAyNTEwMTRfMTA5/MDAxNzYwNDE1MTg2OTI4.yD8lPs2N9h2DHpNWGYm7Q2hrlTnhsvhUnl0eeGlYIjMg.nnfspaY5_W6Jhv9cXQZxHIgrPLEpWP83oxpstOF-cEUg.PNG/%EC%84%9C%EC%9A%B8%EC%A4%91%EB%8F%85%EC%8B%AC%EB%A6%AC%EC%97%B0%EA%B5%AC%EC%86%8C_%EB%A9%94%EC%9D%B8%ED%94%84%EB%A1%9C%ED%95%84.png?type=w966" alt="서울중독심리연구소" class="profile-image">
-            </div>
-            <h1>연구소</h1>
-            <p class="tagline">자기 사랑을 통한 심신 건강 회복</p>
-            
-            <div class="quick-links">
-                <a href="https://ynissi.org/new/" class="quick-link" title="연구소 홈페이지">🏠</a>
-                <a href="https://loveus.or.kr/" class="quick-link" title="자기사랑 홈페이지">💜</a>
-            </div>
-        </div>
-        
-        <div class="links">
-            <a href="https://callingu.kr/" class="link-item">
-                <div class="link-icon">
-                    <img src="https://postfiles.pstatic.net/MjAyNTEwMTRfMjIz/MDAxNzYwNDE2MDc5OTA5.0sGfTuPw5p4aZlYEyEDOei20MWUhg77nWdOxNjG6cTgg.KnMM-aoMiwgE-a0iLRtHU--C7VvbwLEJOdmpsoCKC04g.GIF/%EC%BD%9C%EB%A7%81%EC%9C%A0_%EB%A1%9C%EA%B3%A0_GIF.gif?type=w3840" alt="콜링유">
-                </div>
-                <div class="link-content">
-                    <div class="link-title">콜링유</div>
-                </div>
-            </a>
-            
-            <a href="https://example.com/중독회복" class="link-item">
-                <div class="link-icon">🎙️</div>
-                <div class="link-content">
-                    <div class="link-title">중독회복방송</div>
-                </div>
-            </a>
-        </div>
-        
-        <div class="footer">
-            © 2024 서울중독심리연구소
-        </div>
+  <div class="container">
+    <div class="profile">
+      <img src="<?php echo htmlspecialchars($data['profile']['image']); ?>" 
+           alt="<?php echo htmlspecialchars($data['profile']['title']); ?>" 
+           onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%23667eea%22 width=%22150%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3E💜%3C/text%3E%3C/svg%3E'">
+      <h1><?php echo htmlspecialchars($data['profile']['title']); ?></h1>
+      <p><?php echo htmlspecialchars($data['profile']['description']); ?></p>
     </div>
-    
-    <script>
-        const linkItems = document.querySelectorAll('.link-item');
-        
-        linkItems.forEach(item => {
-            item.addEventListener('mouseenter', function(e) {
-                createHeartBurst(e.currentTarget);
-            });
-        });
-        
-        function createHeartBurst(element) {
-            const hearts = ['💖', '💕', '💗', '💓', '💝', '✨', '⭐'];
-            const numHearts = 8;
-            
-            for (let i = 0; i < numHearts; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart-burst';
-                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                
-                const angle = (Math.PI * 2 * i) / numHearts;
-                const distance = 50 + Math.random() * 30;
-                const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance;
-                
-                heart.style.setProperty('--tx', `${tx}px`);
-                heart.style.setProperty('--ty', `${ty}px`);
-                
-                const rect = element.getBoundingClientRect();
-                heart.style.left = rect.width / 2 + 'px';
-                heart.style.top = rect.height / 2 + 'px';
-                
-                element.appendChild(heart);
-                
-                setTimeout(() => {
-                    heart.remove();
-                }, 1000);
-            }
-        }
-    </script>
+
+    <div class="links">
+      <?php foreach ($data['links'] as $link): ?>
+        <a href="<?php echo htmlspecialchars($link['url']); ?>" target="_blank">
+          <?php echo htmlspecialchars($link['title']); ?>
+        </a>
+      <?php endforeach; ?>
+    </div>
+
+    <div class="media-section">
+      <?php if (!empty($data['media']['audio'])): ?>
+        <div class="media-item">
+          <h2>🎵 제작 음원</h2>
+          <?php foreach ($data['media']['audio'] as $audio): ?>
+            <div class="media-title"><?php echo htmlspecialchars($audio['title']); ?></div>
+            <audio controls>
+              <source src="<?php echo htmlspecialchars($audio['file']); ?>" type="audio/mpeg">
+              브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if (!empty($data['media']['videos'])): ?>
+        <div class="media-item">
+          <h2>🎬 영상/숏츠</h2>
+          <?php foreach ($data['media']['videos'] as $video): ?>
+            <div class="media-title"><?php echo htmlspecialchars($video['title']); ?></div>
+            <video controls>
+              <source src="<?php echo htmlspecialchars($video['file']); ?>" type="video/mp4">
+              브라우저가 비디오 재생을 지원하지 않습니다.
+            </video>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if (!empty($data['media']['images'])): ?>
+        <div class="media-item">
+          <h2>📷 갤러리</h2>
+          <div class="gallery">
+            <?php foreach ($data['media']['images'] as $image): ?>
+              <img src="<?php echo htmlspecialchars($image['file']); ?>" 
+                   alt="<?php echo htmlspecialchars($image['title']); ?>">
+            <?php endforeach; ?>
+          </div>
+        </div>
+      <?php endif; ?>
+    </div>
+
+    <footer>
+      <p>© 2025 <?php echo htmlspecialchars($data['profile']['title']); ?>. All rights reserved.</p>
+      <div class="admin-link">
+        <a href="admin/login.php">관리자</a>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
