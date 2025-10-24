@@ -1,7 +1,7 @@
 php<?php
 // 관리자 계정 설정 (보안을 위해 변경하세요!)
-define('ADMIN_USERNAME', 'admin');
-define('ADMIN_PASSWORD', password_hash('1234', PASSWORD_DEFAULT));
+define('ADMIN_USERNAME', 'JINK');
+define('ADMIN_PASSWORD', password_hash('2479', PASSWORD_DEFAULT));
 
 // 데이터베이스 역할의 JSON 파일 경로
 define('DATA_FILE', __DIR__ . '/data/content.json');
